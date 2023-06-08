@@ -12,7 +12,7 @@ public interface AutorServicio {
 
     public Autor obtenerAutorPorId(Integer id);
 
-    public Autor ActualizarAutor(Autor autor);
+    public Autor actualizarAutor(Autor autor);
 
     public void eliminarAutor(Integer id);
 }

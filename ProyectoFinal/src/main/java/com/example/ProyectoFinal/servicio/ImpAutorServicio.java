@@ -29,7 +29,7 @@ public class ImpAutorServicio implements AutorServicio{
     }
 
     @Override
-    public Autor ActualizarAutor(Autor autor) {
+    public Autor actualizarAutor(Autor autor) {
         return autorRepositorio.save(autor);
     }
 
