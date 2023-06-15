@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -18,28 +19,28 @@ public class AutorControlador {
     @Autowired
     private AutorServicio autorServicio;
 
-    @GetMapping("/listar")
+    @GetMapping("/autores")
     public String listarAutores(Model model){
-        List<Autor> autores = autorServicio.listarTodosLosAutores();
-
-        model.addAttribute("autores", autores);
-        return "lista";
+        model.addAttribute("autores", autorServicio.listarTodosLosAutores());
+        return "autores";
     }
 
-    @GetMapping("/new")
-    public String AgregarAutor(Model model){
+    @GetMapping("/autores/new")
+    public String agregarAutor(Model model){
         Autor autor = new Autor();
         model.addAttribute("autor", autor);
         return "crear_autor";
     }
 
-    @PostMapping("/save")
-    public String GuardarAutor(@ModelAttribute("autor") Autor autor){
+    @PostMapping("/autores")
+    public String guardarAutor(@ModelAttribute("autor") Autor autor, RedirectAttributes redirect){
         autorServicio.guardarAutor(autor);
-        return "redirect:/listar";
+
+        redirect.addFlashAttribute("msgExito", "El autor ha sido agregado con exito");
+        return "redirect:/autores";
     }
 
-    @GetMapping("/editar/{id}")
+    @GetMapping("/autores/editar/{id}")
     public String mostrarFormEditar(@PathVariable Integer id, Model model){
 
         model.addAttribute("autor", autorServicio.obtenerAutorPorId(id));
@@ -47,7 +48,7 @@ public class AutorControlador {
         return "editar_autor";
     }
 
-    @PostMapping("/editar/{id}")
+    @PostMapping("/autores/{id}")
     public String actualizarAutor(@PathVariable Integer id, @ModelAttribute("autor")
                                   Autor autor, Model model){
         Autor autor1 = autorServicio.obtenerAutorPorId(id);
@@ -59,14 +60,17 @@ public class AutorControlador {
 
         autorServicio.actualizarAutor(autor1);
 
-        return "redirect:/listar";
+        return "redirect:/autores";
     }
 
-    public String eliminarAutor(@PathVariable Integer id){
+    @PostMapping("/eliminar/{id}")
+    public String eliminarAutor(@PathVariable Integer id, RedirectAttributes redirect){
 
+        Autor autor = autorServicio.obtenerAutorPorId(id);
         autorServicio.eliminarAutor(id);
+        redirect.addFlashAttribute("msgExito", "El autor ha sido eliminado");
 
-        return "redirect:/listar";
+        return "redirect:/autores";
     }
 
 

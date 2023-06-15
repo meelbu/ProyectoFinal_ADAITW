@@ -1,6 +1,8 @@
 package com.example.ProyectoFinal.controlador;
 
+import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.entidad.Libro;
+import com.example.ProyectoFinal.servicio.AutorServicio;
 import com.example.ProyectoFinal.servicio.LibroServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -18,28 +21,38 @@ public class LibroControlador {
     @Autowired
     private LibroServicio libroServicio;
 
-    @GetMapping("/listar")
-    public String listarLibros(Model model){
-        List<Libro> libros = libroServicio.listarLibros();
+    @Autowired
+    private AutorServicio autorServicio;
 
-        model.addAttribute("libros", libros);
-        return "lista";
+    @GetMapping("/inicio")
+    public String paginaInicio(){
+        return "inicio";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/libros")
+    public String listarLibros(Model model){
+        model.addAttribute("libros", libroServicio.listarLibros());
+        return "libros";
+    }
+
+    @GetMapping("/libros/new")
     public String AgregarLibro(Model model){
         Libro libro = new Libro();
+        List<Autor> listaAutores = autorServicio.listarTodosLosAutores();
         model.addAttribute("libro", libro);
+        model.addAttribute("autores", listaAutores);
         return "crear_libro";
     }
 
-    @PostMapping("/save")
-    public String GuardarLibro(@ModelAttribute("libro") Libro libro){
+    @PostMapping("/libros")
+    public String GuardarLibro(@ModelAttribute("libro") Libro libro, RedirectAttributes redirect){
         libroServicio.guardarLibro(libro);
-        return "redirect:/listar";
+
+        redirect.addFlashAttribute("msgExito", "El libro ha sido agregado con éxito");
+        return "redirect:/libro";
     }
 
-    @GetMapping("/editar/{id}")
+    @GetMapping("/libros/editar/{id}")
     public String mostrarFormEditar(@PathVariable Long isbn, Model model){
 
         model.addAttribute("libro", libroServicio.obtenerLibroPorIsbn(isbn));
@@ -47,25 +60,29 @@ public class LibroControlador {
         return "editar_libro";
     }
 
-    @PostMapping("/editar/{id}")
+    @PostMapping("/libros/{id}")
     public String actualizarLibro(@PathVariable Long isbn, @ModelAttribute("libro")
                                    Libro libro, Model model){
         Libro libro1 = libroServicio.obtenerLibroPorIsbn(isbn);
 
-        libro1.setIsbn(isbn);
+        libro1.setIsbn(libro.getIsbn());
         libro1.setTitulo(libro.getTitulo());
         libro1.setAnioEdicion(libro.getAnioEdicion());
         libro1.setCantidadEjemplares(libro.getCantidadEjemplares());
+        libro1.setCondicionEjemplar(libro.getCondicionEjemplar());
 
         libroServicio.actualizarLibro(libro1);
 
-        return "redirect:/listar";
+        return "redirect:/libros";
     }
 
-    public String eliminarLibro(@PathVariable Long isbn){
+    @PostMapping("/eliminar/libro/{id}")
+    public String eliminarLibro(@PathVariable Long isbn, RedirectAttributes redirect){
 
         libroServicio.eliminarLibro(isbn);
 
-        return "redirect:/listar";
+        redirect.addFlashAttribute("msgExito", "El libro ha sido eliminado");
+
+        return "redirect:/libros";
     }
 }

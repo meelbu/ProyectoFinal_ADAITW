@@ -1,6 +1,5 @@
 package com.example.ProyectoFinal.servicio;
 
-import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.entidad.Libro;
 import com.example.ProyectoFinal.repositorio.LibroRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,6 @@ public class LibroServicioImpl implements LibroServicio{
 
     @Override
     public void eliminarLibro(Long isbn) {
-libroRepositorio.delete(isbn);
+libroRepositorio.deleteById(isbn);
     }
 }

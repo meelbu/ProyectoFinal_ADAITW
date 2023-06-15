@@ -34,6 +34,13 @@ public class Autor {
         this.libros = libros;
     }
 
+    public Autor(String nombreAutor, String apellidoAutor, LocalDateTime lugarFechaNacimiento, List<Libro> libros) {
+        this.nombreAutor = nombreAutor;
+        this.apellidoAutor = apellidoAutor;
+        this.lugarFechaNacimiento = lugarFechaNacimiento;
+        this.libros = libros;
+    }
+
     public Integer getId() {
         return id;
     }
