@@ -22,6 +22,7 @@ public class Libro {
     @Column(name = "condicion_Ejemplares", length = 50, nullable = false)
     private String condicionEjemplar;
 
+
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Autor autor;

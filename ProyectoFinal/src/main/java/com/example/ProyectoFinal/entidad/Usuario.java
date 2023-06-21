@@ -1,7 +1,5 @@
 package com.example.ProyectoFinal.entidad;
 
-import org.springframework.stereotype.Controller;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -99,6 +97,8 @@ public class Usuario {
     public Collection<Rol> getRoles() {
         return roles;
     }
+
+
 
     public void setRoles(Collection<Rol> roles) {
         this.roles = roles;

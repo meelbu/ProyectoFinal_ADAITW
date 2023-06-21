@@ -2,6 +2,7 @@ package com.example.ProyectoFinal.controlador;
 
 import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.servicio.AutorServicio;
+import com.example.ProyectoFinal.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,11 @@ public class AutorControlador {
     @Autowired
     private AutorServicio autorServicio;
 
+
     @GetMapping("/autores")
     public String listarAutores(Model model){
-        model.addAttribute("autores", autorServicio.listarTodosLosAutores());
+        List<Autor> autors = autorServicio.listarTodosLosAutores();
+        model.addAttribute("autores", autors);
         return "autores";
     }
 

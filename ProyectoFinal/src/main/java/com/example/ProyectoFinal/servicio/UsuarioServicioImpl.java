@@ -28,28 +28,30 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     private UsuarioRepositorio usuarioRepositorio;
 
     @Override
-    public Usuario guardar(UsuarioDTO registroDTO) {
-        Usuario usuario = new Usuario(registroDTO.getNombre(),
-                registroDTO.getApellido(), registroDTO.getEmail(),
-                passwordEncoder.encode(registroDTO.getPassword()), Arrays.asList(new Rol("ROLE_USER")));
+    public Usuario guardar(UsuarioDTO usuarioDTO) {
+       Usuario usuario = new Usuario(usuarioDTO.getNombre(),
+               usuarioDTO.getApellido(),usuarioDTO.getEmail(),
+               passwordEncoder.encode(usuarioDTO.getPassword()), Arrays.asList(new  Rol("ROLE_USER")));
+
         return usuarioRepositorio.save(usuario);
     }
 
     @Override
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepositorio.findAll();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepositorio.findByEmail(username);
+        if (usuario == null) {
+            throw new UsernameNotFoundException("Usuario o password inválidos");
+        }
+        return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre())).collect(Collectors.toList());
     }
 
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       Usuario usuario = usuarioRepositorio.findByEmail(username);
-       if (usuario== null){
-           throw new UsernameNotFoundException("Ingrese un usuario y password válidos");
-       }
-       return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepositorio.findAll();
     }
 }

@@ -13,6 +13,13 @@ public class Rol {
 
     private String nombre;
 
+    public Rol(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public Rol() {
+    }
 
     public Rol(String nombre) {
         this.id = id;

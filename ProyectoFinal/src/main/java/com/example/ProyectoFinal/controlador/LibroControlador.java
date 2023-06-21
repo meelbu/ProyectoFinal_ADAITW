@@ -4,6 +4,7 @@ import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.entidad.Libro;
 import com.example.ProyectoFinal.servicio.AutorServicio;
 import com.example.ProyectoFinal.servicio.LibroServicio;
+import com.example.ProyectoFinal.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +25,6 @@ public class LibroControlador {
     @Autowired
     private AutorServicio autorServicio;
 
-    @GetMapping("/inicio")
-    public String paginaInicio(){
-        return "inicio";
-    }
 
     @GetMapping("/libros")
     public String listarLibros(Model model){
