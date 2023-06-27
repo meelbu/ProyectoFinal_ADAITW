@@ -14,7 +14,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a type="button" class="btn btn-outline-light" href="#"><i class="bi bi-person-fill-add"></i> Administración de
+    <a type="button" class="btn btn-outline-light" href="#"><i class="bi bi-person-fill-add"></i> Ingreso de
         autores </a>
 
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -29,14 +29,14 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a type="button" class="btn btn-outline-info" th:href="@{/inicio}"><i
-                        class="bi bi-menu-button-wide-fill"></i> Menu principal </a>
+                        class="bi bi-house"></i> Menu principal </a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="bg-image" style=" background-image:
-            url('https://i.pinimg.com/564x/40/ba/4e/40ba4e25d4ecb1bd9efc85f1bfca6822.jpg');
+            url('https://i.pinimg.com/564x/b4/cd/f3/b4cdf33881074dd51e683c50e2a85c71.jpg');
              height: 100vh;" >
 
     <br>
@@ -47,7 +47,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h1 style="text-align:center" class="p-3 mb-2 bg-success bg-gradient text-white"><em> Administración de autores </em></h1>
+                        <h1 style="text-align:center" class="p-3 mb-2 bg-success bg-gradient text-white"><em> Ingrese los datos del autor a cargar </em></h1>
                     </div>
 
                     <div class="card-body">
@@ -64,15 +64,21 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Lugar y Fecha de Nacimiento : </label>
-                                <input type="datetime-local" name="lugarFechaNacimiento" th:field="*{lugarFechaNacimiento}"
-                                       class="form-control" placeholder="Digite el lugar y la fecha de nacimiento :" required>
+                                <label>Lugar de Nacimiento : </label>
+                                <input type="text" name="lugarNacimiento" th:field="*{lugarNacimiento}"
+                                       class="form-control" placeholder="Digite el lugar de nacimiento :" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento : </label>
+                                <input type="date" name="fechaNacimiento" th:field="*{fechaNacimiento}"
+                                       class="form-control" placeholder="Digite el fecha de nacimiento :" required>
                             </div>
 
                             <br>
 
                             <div class="box-footer">
-                                <button class="btn btn-success"><i class="bi bi-cloud-download-fill"></i> Guardar</button>
+                                <button class="btn btn-success"><i class="bi bi-person-fill-check"></i> Guardar</button>
                                 <a th:href="@{/autores}" class="btn btn-dark"><i class="bi bi-x-circle"></i> Cancelar</a>
                             </div>
 

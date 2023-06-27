@@ -19,6 +19,14 @@ public class ImpAutorServicio implements AutorServicio{
     }
 
     @Override
+    public List<Autor> listarTodosLosAutores(String palabraClave){
+        if (palabraClave!= null){
+            return autorRepositorio.findAll(palabraClave);
+        }
+        return autorRepositorio.findAll();
+    }
+
+    @Override
     public Autor guardarAutor(Autor autor) {
         return autorRepositorio.save(autor);
     }
@@ -34,7 +42,7 @@ public class ImpAutorServicio implements AutorServicio{
     }
 
     @Override
-    public void eliminarAutor(Integer id) {
-        autorRepositorio.deleteById(id);
+    public void eliminarAutor(Autor autor) {
+        autorRepositorio.delete(autor);
     }
 }

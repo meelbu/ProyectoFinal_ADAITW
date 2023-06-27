@@ -2,7 +2,6 @@ package com.example.ProyectoFinal.entidad;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -30,7 +29,7 @@ public class Usuario {
     )
     private Collection<Rol> roles;
 
-    private Usuario(Long id, String nombre, String apellido, String email, String password, Collection<Rol> roles){
+    public Usuario(Long id, String nombre, String apellido, String email, String password, Collection<Rol> roles){
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -39,20 +38,16 @@ public class Usuario {
         this.roles = roles;
     }
 
-
-    public Usuario(String nombre, String apellido, String email, String password) {
+    public Usuario(String nombre, String apellido, String email, String password, Collection<Rol> roles){
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 
     public Usuario() {
     }
-
-    public <T> Usuario(String nombre, String apellido, String email, String encode, List<T> role_user) {
-    }
-
 
     public Long getId() {
         return id;

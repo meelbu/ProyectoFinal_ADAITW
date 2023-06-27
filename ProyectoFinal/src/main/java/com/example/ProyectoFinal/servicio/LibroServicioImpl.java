@@ -19,13 +19,21 @@ public class LibroServicioImpl implements LibroServicio{
     }
 
     @Override
+    public List<Libro> listarLibros(String palabraClave){
+        if (palabraClave!= null){
+            return libroRepositorio.findAll(palabraClave);
+        }
+        return libroRepositorio.findAll();
+    }
+
+    @Override
     public Libro guardarLibro(Libro libro) {
         return libroRepositorio.save(libro);
     }
 
     @Override
-    public Libro obtenerLibroPorIsbn(Long isbn) {
-        return libroRepositorio.findById(isbn).get();
+    public Libro obtenerLibroPorId(Long id) {
+        return libroRepositorio.findById(id).get();
     }
 
     @Override
@@ -34,7 +42,7 @@ public class LibroServicioImpl implements LibroServicio{
     }
 
     @Override
-    public void eliminarLibro(Long isbn) {
-libroRepositorio.deleteById(isbn);
+    public void eliminarLibro(Libro libro) {
+libroRepositorio.delete(libro);
     }
 }

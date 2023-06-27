@@ -3,11 +3,14 @@ package com.example.ProyectoFinal.entidad;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "libro")
+@Table(name = "libros")
 public class Libro {
 
     @Id
-    @Column(name = "isbn")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "libro_id")
+    private Long id;
+    @Column(name = "libro_isbn",nullable = false)
     private long isbn;
 
     @Column(name = "titulo", length = 200, nullable = false)
@@ -22,6 +25,9 @@ public class Libro {
     @Column(name = "condicion_Ejemplares", length = 50, nullable = false)
     private String condicionEjemplar;
 
+    @Column(name = "ejemplares_prestados", length = 50, nullable = false)
+    private Integer ejemplaresPrestados;
+
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
@@ -30,13 +36,23 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(long isbn, String titulo, Integer anioEdicion, Integer cantidadEjemplares, String condicionEjemplar, Autor autor) {
+    public Libro(Long id, Long isbn, String titulo, Integer anioEdicion, Integer cantidadEjemplares, String condicionEjemplar, Integer ejemplaresPrestados, Autor autor) {
+        this.id = id;
         this.isbn = isbn;
         this.titulo = titulo;
         this.anioEdicion = anioEdicion;
         this.cantidadEjemplares = cantidadEjemplares;
         this.condicionEjemplar = condicionEjemplar;
+        this.ejemplaresPrestados = ejemplaresPrestados;
         this.autor = autor;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public long getIsbn() {
@@ -77,6 +93,14 @@ public class Libro {
 
     public void setCondicionEjemplar(String condicionEjemplar) {
         this.condicionEjemplar = condicionEjemplar;
+    }
+
+    public Integer getEjemplaresPrestados() {
+        return ejemplaresPrestados;
+    }
+
+    public void setEjemplaresPrestados(Integer ejemplaresPrestados) {
+        this.ejemplaresPrestados = ejemplaresPrestados;
     }
 
     public Autor getAutor() {

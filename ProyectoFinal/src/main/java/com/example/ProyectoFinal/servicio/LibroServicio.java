@@ -8,12 +8,14 @@ public interface LibroServicio {
 
   public List<Libro> listarLibros();
 
+  List<Libro> listarLibros(String palabraClave);
+
   public Libro guardarLibro(Libro libro);
 
-  public Libro obtenerLibroPorIsbn(Long isbn);
+  public Libro obtenerLibroPorId(Long id);
 
   public Libro actualizarLibro(Libro libro);
 
-  public void eliminarLibro(Long isbn);
+  public void eliminarLibro(Libro libro);
 
 }

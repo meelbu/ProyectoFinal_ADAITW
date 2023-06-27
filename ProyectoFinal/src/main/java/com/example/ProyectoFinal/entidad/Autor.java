@@ -1,7 +1,10 @@
 package com.example.ProyectoFinal.entidad;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.validation.constraints.Past;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -18,7 +21,13 @@ public class Autor {
     @Column(name = "apellido_autor", length = 100, nullable = false)
     private String apellidoAutor;
 
-    private LocalDateTime lugarFechaNacimiento;
+    @Column(name = "lugarNacimiento", length = 100, nullable = false)
+    private String lugarNacimiento;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Past
+    private LocalDate fechaNacimiento;
+
 
     @OneToMany(mappedBy = "autor")
     private List<Libro> libros;
@@ -26,18 +35,20 @@ public class Autor {
     public Autor() {
     }
 
-    public Autor(Integer id, String nombreAutor, String apellidoAutor, LocalDateTime lugarFechaNacimiento, List<Libro> libros) {
+    public Autor(Integer id, String nombreAutor, String apellidoAutor, String lugarNacimiento, LocalDate fechaNacimiento, List<Libro> libros) {
         this.id = id;
         this.nombreAutor = nombreAutor;
         this.apellidoAutor = apellidoAutor;
-        this.lugarFechaNacimiento = lugarFechaNacimiento;
+        this.lugarNacimiento = lugarNacimiento;
+        this.fechaNacimiento = fechaNacimiento;
         this.libros = libros;
     }
 
-    public Autor(String nombreAutor, String apellidoAutor, LocalDateTime lugarFechaNacimiento, List<Libro> libros) {
+    public Autor(String nombreAutor, String apellidoAutor, String lugarNacimiento, LocalDate fechaNacimiento, List<Libro> libros) {
         this.nombreAutor = nombreAutor;
         this.apellidoAutor = apellidoAutor;
-        this.lugarFechaNacimiento = lugarFechaNacimiento;
+        this.lugarNacimiento = lugarNacimiento;
+        this.fechaNacimiento = fechaNacimiento;
         this.libros = libros;
     }
 
@@ -65,12 +76,20 @@ public class Autor {
         this.apellidoAutor = apellidoAutor;
     }
 
-    public LocalDateTime getLugarFechaNacimiento() {
-        return lugarFechaNacimiento;
+    public String getLugarNacimiento() {
+        return lugarNacimiento;
     }
 
-    public void setLugarFechaNacimiento(LocalDateTime lugarFechaNacimiento) {
-        this.lugarFechaNacimiento = lugarFechaNacimiento;
+    public void setLugarNacimiento(String lugarNacimiento) {
+        this.lugarNacimiento = lugarNacimiento;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public List<Libro> getLibros() {

@@ -8,37 +8,40 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
-<body>
+<body background="fondo.jpg">
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" th:href="@{/}"><i class="bi bi-card-checklist"></i> Biblioteca Virtual </a>
+  <a class="navbar-brand" th:href="@{/}"><i class="bi bi-book"></i> Biblioteca Virtual </a>
 
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/libros}"><i class="bi bi-person-fill-check"></i>  Control de libros</a>
+        <a class="nav-link" th:href="@{/libros}"><i class="bi bi-bookmark-check-fill"></i>  Control de libros</a>
       </li>
     </ul>
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/autores}"><i class="bi bi-person-fill-add"></i> control de autores </a>
+          <a class="nav-link" th:href="@{/autores}"><i class="bi bi-bookmark-check-fill"></i> Control de autores </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
+<br>
 <ul class="navbar-nav">
   <li class="nav-item">
-    <a class="nav-link" th:href="@{/autores/new}"><i class="bi bi-person-fill-add"></i> Registro de autores</a>
+    <a type="button" class="btn btn-secondary" th:href="@{/autores/new}"><i class="bi bi-pencil-square"></i> &nbsp;Registro de autores</a>
   </li>
 </ul>
 
+<br>
+
 <ul class="navbar-nav">
   <li class="nav-item">
-    <a class="nav-link" th:href="@{/libros/new}"><i class="bi bi-journal-arrow-down"></i> Registro de libros</a>
+    <a type="button" class="btn btn-secondary" th:href="@{/libros/new}"><i class="bi bi-pencil-square"></i> &nbsp;Registro de libros</a>
   </li>
 </ul>
 
@@ -47,7 +50,7 @@
 <div  class="text-end">
   <ul class="navbar-nav">
     <li  class="nav-item">
-      <a type="button" class="btn btn-outline-info" th:href="@{/}"><i class="bi bi-menu-button-wide-fill"></i> Inicio del sistema </a>
+      <a type="button" class="btn btn-outline-Secondary" th:href="@{/}"><i class="bi bi-skip-backward"></i> Volver </a>
     </li>
   </ul>
 </div>
@@ -59,12 +62,12 @@
 
 <div class="text-center">
   <div class="blockquote">
-    <h2><i class="bi bi-bookmark-check-fill"></i><em>Biblioteca Virtual </em><i class="bi bi-bookmark-check-fill" ></i></h2>
+    <h2><i class="bi bi-book"></i><em> Sistema de carga de libros </em><i class="bi bi-book" ></i></h2>
   </div>
 </div>
 
 <div class="text-center">
-  <img src="logo.jpg" class="rounded" alt="...">
+  <img src="logo.png" class="rounded" alt="...">
 </div>
 
 

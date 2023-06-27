@@ -4,6 +4,7 @@ import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.servicio.AutorServicio;
 import com.example.ProyectoFinal.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,10 @@ public class AutorControlador {
 
 
     @GetMapping("/autores")
-    public String listarAutores(Model model){
+    public String listarTodosLosAutores(Model model, @Param("palabraClave") String palabraClave){
         List<Autor> autors = autorServicio.listarTodosLosAutores();
         model.addAttribute("autores", autors);
+        model.addAttribute("palabraClave", palabraClave);
         return "autores";
     }
 
@@ -59,7 +61,8 @@ public class AutorControlador {
         autor1.setId(id);
         autor1.setNombreAutor(autor.getNombreAutor());
         autor1.setApellidoAutor(autor.getApellidoAutor());
-        autor1.setLugarFechaNacimiento(autor.getLugarFechaNacimiento());
+        autor1.setLugarNacimiento(autor.getLugarNacimiento());
+        autor1.setFechaNacimiento(autor.getFechaNacimiento());
 
         autorServicio.actualizarAutor(autor1);
 
@@ -70,7 +73,7 @@ public class AutorControlador {
     public String eliminarAutor(@PathVariable Integer id, RedirectAttributes redirect){
 
         Autor autor = autorServicio.obtenerAutorPorId(id);
-        autorServicio.eliminarAutor(id);
+        autorServicio.eliminarAutor(autor);
         redirect.addFlashAttribute("msgExito", "El autor ha sido eliminado");
 
         return "redirect:/autores";
