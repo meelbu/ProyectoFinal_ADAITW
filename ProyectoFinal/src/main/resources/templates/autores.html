@@ -1,107 +1,209 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-  <title>Control de autores</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de autores</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Diseño links -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Diseño links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-  <!-- Icons links -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Icons links -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <script>
+        function buscarAutores() {
+            var input = document.getElementById("palabraClave");
+            var filter = input.value.toUpperCase();
+            var table = document.getElementById("tablaAutores");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var columns = rows[i].getElementsByTagName("td");
+                var encontrado = false;
+
+                for (var j = 0; j < columns.length; j++) {
+                    var cell = columns[j];
+                    if (cell) {
+                        var textoCelda = cell.textContent || cell.innerText;
+                        if (textoCelda.toUpperCase().indexOf(filter) > -1) {
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (encontrado) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+    <style>
+    body {
+      background-color: beige;
+      background-image: url("https://i.pinimg.com/564x/6a/f3/3c/6af33c8c2fa6cb619670bda9ee382765.jpg");
+      background-size: cover;
+      background-position: right;
+    }
+
+    .navbar {
+      background-color: #283c63;
+      color: white;
+    }
+
+    .navbar .navbar-brand {
+      color: white;
+    }
+
+    .navbar .nav-link {
+      color: white;
+    }
+
+    .navbar .btn-outline-info {
+      color: white;
+      border-color: white;
+    }
+
+    .content {
+      background-color: rgba(255, 255, 255, 0.9);
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .content h1 {
+      color: #283c63;
+      border-bottom: 2px solid #283c63;
+      padding-bottom: 10px;
+    }
+
+    .btn-info {
+      background-color: #283c63;
+      border-color: #283c63;
+    }
+
+    .btn-info:hover {
+      background-color: #1a293f;
+      border-color: #1a293f;
+    }
+
+    .form-inline .form-control-sm {
+      width: 70%;
+    }
+
+    .table {
+      background-color: #e6f7ff;
+    }
+
+    .table thead {
+      background-color: #c2e2ff;
+    }
+
+    .table-danger {
+      background-color: #ffe6e6;
+    }
+  </style>
 </head>
 
-
-<body background="fondo.jpg">
-
+<body>
 <nav class="navbar navbar-expand-md bg-secondary navbar-light">
-  <a type="button" class="btn btn-outline-light"><i class="bi bi-person-lines-fill"></i> Control de autores</a>
-  <!-- Navbar links -->
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/libros}"><i class="bi bi-journal-text"></i> Control de libros</a>
-      </li>
-    </ul>
+    <a type="button" class="btn btn-outline-light"><i class="bi bi-person-lines-fill"></i> &nbsp;Control de autores</a>
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/libros"><i class="bi bi-journal-text"></i> &nbsp;Control de libros</a>
+            </li>
+        </ul>
 
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/libros/new}"><i class="bi bi-journal-arrow-up"></i> Registro de libros</a>
-      </li>
-    </ul>
-  </div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/libros/new"><i class="bi bi-journal-arrow-up"></i> Registro de libros</a>
+            </li>
+        </ul>
+    </div>
 
-  <div class="text-end">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a type="button" class="btn btn-outline-info" th:href="@{/inicio}"><i class="bi bi-house"></i> Menu principal </a>
-      </li>
-    </ul>
-  </div>
+    <div class="text-end">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a type="button" class="btn btn-outline-info" href="/inicio"><i class="bi bi-house"></i> Menu principal</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 
-<div class="container">
-  <div th:if="${msgExito != null}" class="alert alert-success alert-dismissible">
-    [[${msgExito}]]
-    <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
-  </div>
-
-  <br>
-
-  <div class="container">
-    <div class="row">
-      <h1 style="text-align:center" class="p-3 mb-2 bg-ligth bg-gradient text-dark"><i class="bi bi-list-stars"></i><em> Lista de autores </h1>
+<div class="content">
+    <div th:if="${msgExito != null}" class="alert alert-success alert-dismissible">
+        [[${msgExito}]]
+        <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
     </div>
 
     <br>
 
-    <div class="text-center my-3">
-        <a th:href="@{/autores/new}" class="btn btn-info"><i class="bi bi-person-fill-add"></i> Agregar autor</a>
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align:center" class="p-3 mb-2 bg-light bg-gradient text-dark"><i class="bi bi-list-stars"></i><em> &nbsp;Lista de Autores </em></h1>
+        </div>
+
+        <br>
+
+        <div class="text-center my-3">
+            <a href="/autores/new" class="btn btn-info"><i class="bi bi-person-fill-add"></i> &nbsp;Agregar autor</a>
+        </div>
+
+        <br>
+
+        <form class="form-inline" action="/autores">
+            <div class="form-group mb-2">
+                <label> &nbsp;Buscar autor </label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2 d-flex">
+                <input type="text" name="palabraClave" class="form-control-sm" id="palabraClave" th:value="${palabraClave}" placeholder="Buscar" required>
+                <input type="button" class="btn btn-secondary ml-2" value=" Limpiar " onclick="limpiarCampos()">
+            </div>
+
+        </form>
+
+        <br>
+
+        <table class="table table-success table-striped" style="text-align:center">
+            <thead class="table-danger">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Lugar de Nacimiento</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="tablaAutores">
+            <tr th:each="autor : ${autores}">
+                <td th:text="${autor.id}">Id: </td>
+                <td th:text="${autor.nombreAutor}">Nombre: </td>
+                <td th:text="${autor.apellidoAutor}">Apellido: </td>
+                <td th:text="${autor.lugarNacimiento}">Lugar de Nacimiento: </td>
+                <td th:text="${autor.fechaNacimiento}">Fecha de Nacimiento: </td>
+                <td>
+                    <a th:href="@{/autores/editar/{id}(id=${autor.id})}" class="btn btn-info"><i class="bi bi-file-earmark-person"></i> Editar</a>
+                    <a href="#" onclick="eliminarAutor(this)" class="btn btn-danger"><i class="bi bi-person-fill-slash"></i> Eliminar</a>
+
+                    <form th:action="@{/eliminar/{id}(id=${autor.id})}" method="post"></form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <script>
+        document.getElementById("palabraClave").addEventListener("keyup", buscarAutores);
+    </script>
 
     </div>
-
-    <br>
-
-    <form class="form-inline" th:action="@{/autores}">
-      <div class="form-group mb-2">
-        <label> Buscar autor: </label>
-      </div>
-      <div class="form-group mx-sm-3 mb-2 d-flex">
-        <input type="text" name="palabraClave" class="form-control-sm" id="palabraClave" th:value="${palabraClave}" placeholder="Buscar" required>
-        <input type="button" class="btn btn-secondary ml-2" value=" Limpiar " onclick="limpiarCampos()">
-      </div>
-    </form>
-
-    <br>
-
-    <table class="table table-success table-striped" style="text-align:center">
-      <thead class="table-danger">
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Lugar de Nacimiento</th>
-        <th>Fecha de Nacimiento</th>
-        <th>Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="autor : ${autores}">
-        <td th:text="${autor.nombreAutor}">Nombre: </td>
-        <td th:text="${autor.apellidoAutor}">Apellido: </td>
-        <td th:text="${autor.lugarNacimiento}">Lugar de Nacimiento: </td>
-        <td th:text="${autor.fechaNacimiento}">Fecha de Nacimiento: </td>
-        <td>
-          <a th:href="@{/autores/editar/{id}(id=${autor.id})}"  class="btn btn-info"><i class="bi bi-file-earmark-person"></i> Editar</a>
-          <a href="#" onclick="eliminarAutor(this)" class="btn btn-danger"><i class="bi bi-person-fill-slash"></i> Eliminar</a>
-
-          <form th:action="@{/eliminar/{id}(id=${autor.id})}" method="post"></form>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
 </div>
 
 <!-- Js links -->
@@ -111,14 +213,14 @@
         crossorigin="anonymous"></script>
 <!-- Función js -->
 <script>
-                function eliminarAutor(elemento){
-                var ok = confirm('Si no hay registros previos de libros con este autor, ¿Estás seguro de eliminar el autor?');
+  function eliminarAutor(elemento){
+    var ok = confirm('Si no hay registros previos del autor en la tabla "libro" se eliminará completamente del sistema. ¿Estás seguro que deseas eliminarlo?');
+    if (ok) {
+        elemento.parentNode.getElementsByTagName('form')[0].submit();
+    }
+  }
 
-                if(ok){
-                elemento.nextElementSibling.submit();
-                }
-              }
-           </script>
+</script>
 
 <script type="text/javascript">
     function limpiarCampos(){
@@ -126,5 +228,29 @@
      }
 </script>
 
+<script>
+function buscarElemento() {
+var lista = ["nombreAutor", "apellidoAutor", "elemento3"]; // Tu lista de elementos
+var elementoABuscar = "elemento2"; // Elemento que deseas buscar
+var encontrado = false;
+
+for (var i = 0; i < lista.length; i++) {
+if (lista[i] === elementoABuscar) {
+encontrado = true;
+break;
+}
+}
+
+if (encontrado) {
+console.log("Elemento encontrado en la lista.");
+} else {
+console.log("Elemento no encontrado en la lista.");
+}
+}
+
+buscarElemento();
+
+</script>
 </body>
 </html>
+

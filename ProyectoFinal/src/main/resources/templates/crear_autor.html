@@ -9,85 +9,145 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #17a2b8;
+        }
+
+        .navbar .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-link {
+            color: #fff;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            margin: 0 auto;
+            max-width: 500px;
+            background-color: #fff;
+        }
+
+        .card-header {
+            background-color: #17a2b8;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        .box-footer {
+            text-align: right;
+            padding: 15px;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+        .side-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: auto;
+            opacity: 0.5;
+            z-index: -1;
+        }
+    </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a type="button" class="btn btn-outline-light" href="#"><i class="bi bi-person-fill-add"></i> Ingreso de
-        autores </a>
-
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/autores}"><i class="bi bi-person-vcard-fill"></i> Control de autores</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="text-end">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a type="button" class="btn btn-outline-info" th:href="@{/inicio}"><i
-                        class="bi bi-house"></i> Menu principal </a>
-            </li>
-        </ul>
+<nav class="navbar navbar-expand-md navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="bi bi-person-fill-add"></i> Ingreso de autores</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/autores}"><i class="bi bi-person-vcard-fill"></i> Control de autores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/inicio}"><i class="bi bi-house"></i> Menú principal</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
-<div class="bg-image" style=" background-image:
-            url('https://i.pinimg.com/564x/b4/cd/f3/b4cdf33881074dd51e683c50e2a85c71.jpg');
-             height: 100vh;" >
-
-    <br>
-
-    <div class="container">
-        <div class="row d-flex container justify-content-center">
-            <div class="col-sm-7">
-
-                <div class="card">
-                    <div class="card-header">
-                        <h1 style="text-align:center" class="p-3 mb-2 bg-success bg-gradient text-white"><em> Ingrese los datos del autor a cargar </em></h1>
-                    </div>
-
-                    <div class="card-body">
-                        <form th:action="@{/autores}" th:object="${autor}" method="POST">
-
-                            <div class="form-group">
-                                <label>Nombre : </label>
-                                <input type="text" name="nombreAutor" th:field="*{nombreAutor}" class="form-control" placeholder="Digite el nombre :" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Apellido : </label>
-                                <input type="text" name="apellidoAutor" th:field="*{apellidoAutor}" class="form-control" placeholder="Digite el apellido :" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Lugar de Nacimiento : </label>
-                                <input type="text" name="lugarNacimiento" th:field="*{lugarNacimiento}"
-                                       class="form-control" placeholder="Digite el lugar de nacimiento :" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Fecha de Nacimiento : </label>
-                                <input type="date" name="fechaNacimiento" th:field="*{fechaNacimiento}"
-                                       class="form-control" placeholder="Digite el fecha de nacimiento :" required>
-                            </div>
-
-                            <br>
-
-                            <div class="box-footer">
-                                <button class="btn btn-info"><i class="bi bi-person-fill-check"></i> Guardar</button>
-                                <a th:href="@{/autores}" class="btn btn-warning"><i class="bi bi-x-circle"></i> Cancelar</a>
-                            </div>
-
-                        </form>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-7">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="mb-0"><em>Ingrese los datos del autor a cargar</em></h1>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/autores}" th:object="${autor}" method="POST">
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input type="text" name="nombreAutor" th:field="*{nombreAutor}" class="form-control" placeholder="Digite el nombre:" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido:</label>
+                            <input type="text" name="apellidoAutor" th:field="*{apellidoAutor}" class="form-control" placeholder="Digite el apellido:" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Lugar de Nacimiento:</label>
+                            <input type="text" name="lugarNacimiento" th:field="*{lugarNacimiento}"
+                                   class="form-control" placeholder="Digite el lugar de nacimiento:" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Nacimiento:</label>
+                            <input type="date" name="fechaNacimiento" th:field="*{fechaNacimiento}"
+                                   class="form-control" placeholder="Digite la fecha de nacimiento:" required>
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-info">Guardar</button>
+                            <a th:href="@{/autores}" class="btn btn-warning">Cancelar</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<img src="https://i.pinimg.com/564x/6a/f3/3c/6af33c8c2fa6cb619670bda9ee382765.jpg" alt="Fondo" class="side-image">
+
 </body>
 </html>
