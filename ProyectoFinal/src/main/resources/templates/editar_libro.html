@@ -43,7 +43,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/libros}"><i class="bi bi-person-vcard-fill"></i> Control de autores</a>
+                <a class="nav-link" th:href="@{/autores}"><i class="bi bi-person-vcard-fill"></i> Control de autores</a>
             </li>
         </ul>
     </div>
@@ -66,7 +66,7 @@
         <div class="col-md-6">
             <div class="form-container">
                 <h1 class="text-center mb-4"><em>Edición del libro</em></h1>
-                <form th:action="@{/libros/{id}(id=${libro.id})}" th:object="${libro}" method="POST">
+                <form th:action="@{/libros/editar/{id}(id=${libro.id})}" th:object="${libro}" method="POST">
                     <div class="mb-3">
                         <label for="isbn" class="form-label"> Isbn: </label>
                         <input type="number" name="isbn" th:field="*{isbn}" class="form-control"
@@ -86,17 +86,33 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="cantidadEjemplares" class="form-label"> Cantidad de ejemplares:</label>
+                        <label for="cantidadEjemplares" class="form-label"> Cantidad de ejemplares: </label>
                         <input type="number" name="cantidadEjemplares" th:field="*{cantidadEjemplares}"
                                class="form-control" placeholder="Digite la cantidad de ejemplares cargados: " required>
                     </div>
 
-                    <div class="form-group">
-                        <label> Condicion de ejemplares: </label>
+            <div class="mb-3">
+                <label for="ejemplaresPrestados" class="form-label"> Ejemplares prestados: </label>
+                <input type="number" name="ejemplaresPrestados" th:field="*{ejemplaresPrestados}"
+                       class="form-control" placeholder="Digite la cantidad de ejemplares prestados :" required>
+            </div>
+
+                    <div class="mb-3">
+                        <label for="condicionEjemplar" class="form-label"> Condicion de ejemplares: </label>
                         <select th:field="*{condicionEjemplar}" id="condicionEjemplar" class="form-select" required>
                             <option selected value=""> Seleccionar opción: </option>
                             <option value="Nuevos">Nuevos</option>
                             <option value="Usados">Usados</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="autor" class="form-label"> Autor: </label>
+                        <select th:field="*{autor}" id="autor" class="form-select" required>
+                            <option selected value="">Seleccionar Autor</option>
+                            <option th:each="autor : ${autores}" th:value="${autor.id}">
+                                [[${autor.nombreAutor}]] [[${autor.apellidoAutor}]]
+                            </option>
                         </select>
                     </div>
 

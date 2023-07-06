@@ -158,7 +158,7 @@
                 <td th:text="${libro.isbn}">Isbn</td>
                 <td th:text="${libro.titulo}">Titulo</td>
                 <td th:text="${libro.anioEdicion}">Año</td>
-                <td th:text="${libro.autor.nombreAutor}">Autor</td>
+                <td th:text="${libro.autor.nombreAutor+''+libro.autor.apellidoAutor}">Autor</td>
                 <td th:text="${libro.cantidadEjemplares}">Cantidad de ejemplares</td>
                 <td th:text="${libro.condicionEjemplar}">CondEjemplar</td>
                 <td th:text="${libro.ejemplaresPrestados}">EjPrestados</td>

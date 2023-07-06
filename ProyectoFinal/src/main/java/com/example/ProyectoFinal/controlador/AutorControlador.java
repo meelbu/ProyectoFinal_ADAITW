@@ -2,7 +2,6 @@ package com.example.ProyectoFinal.controlador;
 
 import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.servicio.AutorServicio;
-import com.example.ProyectoFinal.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;

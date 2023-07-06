@@ -4,15 +4,11 @@ import com.example.ProyectoFinal.entidad.Autor;
 import com.example.ProyectoFinal.entidad.Libro;
 import com.example.ProyectoFinal.servicio.AutorServicio;
 import com.example.ProyectoFinal.servicio.LibroServicio;
-import com.example.ProyectoFinal.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -55,12 +51,16 @@ public class LibroControlador {
     @GetMapping("/libros/editar/{id}")
     public String mostrarFormEditar(@PathVariable Long id, Model model){
 
-        model.addAttribute("libro", libroServicio.obtenerLibroPorId(id));
+        Libro libro = libroServicio.obtenerLibroPorId(id);
+        List<Autor> autores = autorServicio.listarTodosLosAutores();
+
+        model.addAttribute("libro", libro);
+        model.addAttribute("autores", autores);
 
         return "editar_libro";
     }
 
-    @PostMapping("/libros/{id}")
+    @PostMapping("/libros/editar/{id}")
     public String actualizarLibro(@PathVariable Long id, @ModelAttribute("libro")
                                    Libro libro, Model model){
         Libro libro1 = libroServicio.obtenerLibroPorId(id);
